@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -7,7 +6,8 @@
   <title>World Short Link - Ultra Modern URL Shortener</title>
   <meta name="description" content="World Short Link ile ultra hızlı, güvenli ve modern URL kısaltma servisi. Hood style ile en iyi kısa link deneyimi!">
   <meta name="keywords" content="url shortener, kısa link, world short link, modern, hızlı, güvenli, hood style, link kısalt, linkzone, gen z, kopilot">
-  <meta name="author" content="DeveloperKubilay & Copilot AI">
+  <meta name="author" content="R&d">
+  <link rel="icon" type="image/webp" href="favicon.webp">
   <style>
     * {
       margin: 0;
@@ -285,30 +285,6 @@
       color: #64748b;
       font-weight: 600;
     }
-    @media (max-width: 768px) {
-      .container {
-        max-width: 95%;
-        padding: 2rem;
-        margin: 1rem;
-      }
-      .logo h1 {
-        font-size: 2rem;
-      }
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-      .copy-container {
-        flex-direction: column;
-      }
-    }
-    @media (max-width: 480px) {
-      .input-wrapper {
-        flex-direction: column;
-      }
-      .random-btn {
-        min-width: 100%;
-      }
-    }
     /* Dil dropdown */
     .lang-switcher {
       position: absolute;
@@ -328,6 +304,83 @@
     .lang-switcher:focus {
       box-shadow: 0 2px 16px #764ba2aa;
     }
+    /* Mobilde düz mavi arka plan ve alt fix */
+    @media (max-width: 768px) {
+      body {
+        background: #667eea !important;
+      }
+      .container {
+        max-width: 95%;
+        padding: 2rem;
+        margin: 1rem;
+      }
+      .logo {
+        margin-bottom: 0.5rem;
+        margin-top: 1.2rem;
+      }
+      .logo h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+      .logo p {
+        font-size: 0.9rem;
+        margin-bottom: 0.1rem;
+        display: block;
+      }
+      .lang-switcher {
+        position: static;
+        margin: 0 auto 1rem auto;
+        display: block;
+        width: 90%;
+        top: unset;
+        right: unset;
+        left: unset;
+      }
+      .feature-grid, .features {
+        display: none !important;
+      }
+      .particles { display: none; }
+    }
+    @media (max-width: 480px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+      .random-btn {
+        min-width: 100%;
+      }
+      .logo h1, .logo p {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+      .lang-switcher {
+        width: 100%;
+        font-size: 0.9rem;
+      }
+    }
+    /* Alt sabit bar düz renk */
+    .mobile-footer {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .mobile-footer {
+        display: block;
+        width: 100vw;
+        background: #667eea;
+        color: #fff;
+        text-align: center;
+        padding: 0.7rem 0;
+        font-size: 1rem;
+        font-weight: 500;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 9999;
+        border-top: 1px solid #764ba2;
+      }
+    }
   </style>
 </head>
 <body>
@@ -339,6 +392,11 @@
     <div class="particle"></div>
   </div>
 
+  <!-- Mobilde üstte ve ortada! -->
+  <div class="logo">
+    <h1>🔗 World Short Link</h1>
+    <p>Ultra Modern URL Shortener</p>
+  </div>
   <select class="lang-switcher" id="lang-switcher">
     <option value="tr">🇹🇷 Türkçe</option>
     <option value="en">🇬🇧 English</option>
@@ -351,15 +409,8 @@
     <option value="ja">🇯🇵 日本語</option>
     <option value="ar">🇸🇦 العربية</option>
   </select>
-
   <div class="container">
-    <div class="logo">
-      <h1>🔗 World Short Link</h1>
-      <p>Ultra Modern URL Shortener</p>
-    </div>
-
     <div id="message-container"></div>
-
     <form method="POST" id="shortener-form">
       <div class="form-group">
         <label for="id" id="label-id">🎯 Kısa ID</label>
@@ -368,19 +419,16 @@
           <button type="button" class="random-btn" id="random-btn">🎲 Random</button>
         </div>
       </div>
-
       <div class="form-group">
         <label for="domain" id="label-domain">🌐 Hedef URL</label>
         <div class="input-wrapper">
           <input type="url" name="domain" id="domain" placeholder="https://example.com" required />
         </div>
       </div>
-
       <button type="submit" class="submit-btn" id="submit-btn">
         ⚡ Kısa Link Oluştur
       </button>
     </form>
-
     <div class="features">
       <div class="feature-grid">
         <div class="feature">
@@ -401,6 +449,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="mobile-footer">
+    <span>🔥 World Short Link | Hood Style Gen Z | © 2025</span>
   </div>
 
   <script>
@@ -588,10 +639,12 @@
       document.getElementById('submit-btn').innerText = LANGS[lang].btn_create;
       document.getElementById('id').placeholder = LANGS[lang].placeholder_id;
       document.getElementById('domain').placeholder = LANGS[lang].placeholder_domain;
-      document.getElementById('feature1').innerText = LANGS[lang].features[0];
-      document.getElementById('feature2').innerText = LANGS[lang].features[1];
-      document.getElementById('feature3').innerText = LANGS[lang].features[2];
-      document.getElementById('feature4').innerText = LANGS[lang].features[3];
+      if(window.innerWidth > 768) {
+        document.getElementById('feature1').innerText = LANGS[lang].features[0];
+        document.getElementById('feature2').innerText = LANGS[lang].features[1];
+        document.getElementById('feature3').innerText = LANGS[lang].features[2];
+        document.getElementById('feature4').innerText = LANGS[lang].features[3];
+      }
     }
 
     document.getElementById('lang-switcher').addEventListener('change', function() {
