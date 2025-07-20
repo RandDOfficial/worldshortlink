@@ -62,8 +62,8 @@
       border-radius: 24px;
       padding: 3rem 2rem;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 410px;
+      width: 100vw;
+      max-width: 100vw;
       position: relative;
       z-index: 10;
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -73,13 +73,13 @@
       justify-content: center;
       min-height: 420px;
       max-height: 90vh;
-      /* Ortala */
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      /* Bilgisayarda da telefonda gibi */
+      box-sizing: border-box;
     }
-    /* Dil seçici ana stil */
     .lang-switcher {
       display: flex;
       justify-content: center;
@@ -246,9 +246,11 @@
       word-break: break-all;
       position: relative;
       border: 2px solid #374151;
-      width: 100%;
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: -2rem;
+      margin-right: -2rem;
       box-sizing: border-box;
-      max-width: 100%;
     }
     .copy-container {
       display: flex;
@@ -477,10 +479,8 @@
     });
     setLang('tr'); // Default
 
-    // Girince direk en üstte scroll yapsın - animasyonsuz
     window.scrollTo(0, 0);
 
-    // Random URL generator
     function generateRandomId() {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
