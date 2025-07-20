@@ -18,15 +18,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* Animated background particles */
     .particles {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 100%;
       overflow: hidden;
+      z-index: 1;
     }
     
     .particle {
@@ -60,6 +62,23 @@
       position: relative;
       z-index: 10;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      margin: 2rem 0;
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+    }
+
+    .language-selector select {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 8px;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
     }
 
     .logo {
@@ -311,6 +330,11 @@
     }
 
     @media (max-width: 768px) {
+      body {
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+      
       .container {
         max-width: 95%;
         padding: 2rem;
@@ -351,16 +375,36 @@
   </div>
 
   <div class="container">
+    <div class="language-selector">
+      <select id="language-select">
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="pt">🇧🇷 Português</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="nl">🇳🇱 Nederlands</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="hi">🇮🇳 हिंदी</option>
+      </select>
+    </div>
+
     <div class="logo">
       <h1>🔗 LinkZone</h1>
-      <p>Ultra Modern URL Shortener</p>
+      <p id="subtitle">Ultra Modern URL Shortener</p>
     </div>
 
     <div id="message-container"></div>
 
     <form method="POST" id="shortener-form">
       <div class="form-group">
-        <label for="id">🎯 Kısa ID</label>
+        <label for="id" id="id-label">🎯 Kısa ID</label>
         <div class="input-wrapper">
           <input type="text" name="id" id="id" placeholder="örn: mega-link-2024" required maxlength="50" />
           <button type="button" class="random-btn" id="random-btn">🎲 Random</button>
@@ -368,13 +412,13 @@
       </div>
 
       <div class="form-group">
-        <label for="domain">🌐 Hedef URL</label>
+        <label for="domain" id="domain-label">🌐 Hedef URL</label>
         <div class="input-wrapper">
           <input type="url" name="domain" id="domain" placeholder="https://example.com" required />
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">
+      <button type="submit" class="submit-btn" id="submit-btn">
         ⚡ Kısa Link Oluştur
       </button>
     </form>
@@ -383,153 +427,271 @@
       <div class="feature-grid">
         <div class="feature">
           <div class="feature-icon">🚀</div>
-          <div class="feature-text">Ultra Hızlı</div>
+          <div class="feature-text" id="feature1">Ultra Hızlı</div>
         </div>
         <div class="feature">
           <div class="feature-icon">🛡️</div>
-          <div class="feature-text">Güvenli</div>
+          <div class="feature-text" id="feature2">Güvenli</div>
         </div>
         <div class="feature">
           <div class="feature-icon">🎨</div>
-          <div class="feature-text">Modern Tasarım</div>
+          <div class="feature-text" id="feature3">Modern Tasarım</div>
         </div>
         <div class="feature">
           <div class="feature-icon">⚡</div>
-          <div class="feature-text">Anında Oluştur</div>
+          <div class="feature-text" id="feature4">Anında Oluştur</div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Random URL generator
-    function generateRandomId() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let result = '';
-      for (let i = 0; i < 5; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    }
-
-    // Random button click handler
-    document.getElementById('random-btn').addEventListener('click', function() {
-      const idInput = document.getElementById('id');
-      idInput.value = generateRandomId();
-      
-      // Add a little animation
-      this.innerHTML = '✨ Done!';
-      setTimeout(() => {
-        this.innerHTML = '🎲 Random';
-      }, 1000);
-    });
-
-    // Copy to clipboard function
-    async function copyToClipboard(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch (err) {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        const successful = document.execCommand('copy');
-        document.body.removeChild(textArea);
-        return successful;
-      }
-    }
-
-    document.getElementById('shortener-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(this);
-      const submitBtn = document.querySelector('.submit-btn');
-      const messageContainer = document.getElementById('message-container');
-      const idValue = formData.get('id');
-      
-      // Show loading state
-      submitBtn.innerHTML = '⏳ Oluşturuluyor...';
-      submitBtn.disabled = true;
-      
-      try {
-        const response = await fetch('/', {
-          method: 'POST',
-          body: formData
-        });
-        
-        const result = await response.text();
-        
-        if (response.ok) {
-          if (result.includes('Bu ID zaten kullanılıyor')) {
-            messageContainer.innerHTML = '<div class="warning">⚠️ ' + result + '</div>';
-          } else {
-            const shortUrl = `https://worldshortlink.com/${idValue}`;
-            messageContainer.innerHTML = `
-              <div class="success">
-                ✅ Kısa link başarıyla oluşturuldu!
-                <div class="success-url">
-                  <code>${shortUrl}</code>
-                  <div class="copy-container">
-                    <span style="font-size: 0.9rem; color: #9ca3af;">Yukarıdaki linki kopyalayın</span>
-                    <button class="copy-btn" onclick="handleCopy('${shortUrl}', this)">
-                      📋 Kopyala
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-            this.reset();
-          }
-        } else {
-          messageContainer.innerHTML = '<div class="error">❌ ' + result + '</div>';
-        }
-      } catch (error) {
-        messageContainer.innerHTML = '<div class="error">❌ Bir hata oluştu. Lütfen tekrar deneyin.</div>';
-      }
-      
-      // Reset button
-      submitBtn.innerHTML = '⚡ Kısa Link Oluştur';
-      submitBtn.disabled = false;
-    });
-
-    // Handle copy button click
-    async function handleCopy(url, button) {
-      const success = await copyToClipboard(url);
-      
-      if (success) {
-        button.innerHTML = '✅ Kopyalandı!';
-        button.classList.add('copied');
-        
-        setTimeout(() => {
-          button.innerHTML = '📋 Kopyala';
-          button.classList.remove('copied');
-        }, 2000);
-      } else {
-        button.innerHTML = '❌ Hata!';
-        setTimeout(() => {
-          button.innerHTML = '📋 Kopyala';
-        }, 2000);
-      }
-    }
-
-    // Auto-hide messages after 8 seconds
-    function hideMessages() {
-      const messageContainer = document.getElementById('message-container');
-      setTimeout(() => {
-        messageContainer.innerHTML = '';
-      }, 8000);
-    }
-
-    // Watch for message changes
-    new MutationObserver(hideMessages).observe(document.getElementById('message-container'), {
-      childList: true
-    });
-  </script>
-</body>
-</html>
+    // Multi-language support
+    const translations = {
+      tr: {
+        subtitle: "Ultra Modern URL Shortener",
+        idLabel: "🎯 Kısa ID",
+        domainLabel: "🌐 Hedef URL",
+        randomBtn: "🎲 Random",
+        randomBtnDone: "✨ Tamam!",
+        submitBtn: "⚡ Kısa Link Oluştur",
+        submitBtnLoading: "⏳ Oluşturuluyor...",
+        idPlaceholder: "örn: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Kopyala",
+        copied: "✅ Kopyalandı!",
+        copyError: "❌ Hata!",
+        copyText: "Yukarıdaki linki kopyalayın",
+        successMessage: "✅ Kısa link başarıyla oluşturuldu!",
+        errorMessage: "❌ Bir hata oluştu. Lütfen tekrar deneyin.",
+        warningExists: "⚠️ Bu ID zaten kullanılıyor",
+        feature1: "Ultra Hızlı",
+        feature2: "Güvenli",
+        feature3: "Modern Tasarım",
+        feature4: "Anında Oluştur"
+      },
+      en: {
+        subtitle: "Ultra Modern URL Shortener",
+        idLabel: "🎯 Short ID",
+        domainLabel: "🌐 Target URL",
+        randomBtn: "🎲 Random",
+        randomBtnDone: "✨ Done!",
+        submitBtn: "⚡ Create Short Link",
+        submitBtnLoading: "⏳ Creating...",
+        idPlaceholder: "e.g: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Copy",
+        copied: "✅ Copied!",
+        copyError: "❌ Error!",
+        copyText: "Copy the link above",
+        successMessage: "✅ Short link created successfully!",
+        errorMessage: "❌ An error occurred. Please try again.",
+        warningExists: "⚠️ This ID is already in use",
+        feature1: "Ultra Fast",
+        feature2: "Secure",
+        feature3: "Modern Design",
+        feature4: "Instant Create"
+      },
+      es: {
+        subtitle: "Acortador de URL Ultra Moderno",
+        idLabel: "🎯 ID Corto",
+        domainLabel: "🌐 URL de Destino",
+        randomBtn: "🎲 Aleatorio",
+        randomBtnDone: "✨ ¡Hecho!",
+        submitBtn: "⚡ Crear Enlace Corto",
+        submitBtnLoading: "⏳ Creando...",
+        idPlaceholder: "ej: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Copiar",
+        copied: "✅ ¡Copiado!",
+        copyError: "❌ ¡Error!",
+        copyText: "Copia el enlace de arriba",
+        successMessage: "✅ ¡Enlace corto creado exitosamente!",
+        errorMessage: "❌ Ocurrió un error. Por favor intenta de nuevo.",
+        warningExists: "⚠️ Este ID ya está en uso",
+        feature1: "Ultra Rápido",
+        feature2: "Seguro",
+        feature3: "Diseño Moderno",
+        feature4: "Crear Instantáneo"
+      },
+      fr: {
+        subtitle: "Raccourcisseur d'URL Ultra Moderne",
+        idLabel: "🎯 ID Court",
+        domainLabel: "🌐 URL Cible",
+        randomBtn: "🎲 Aléatoire",
+        randomBtnDone: "✨ Fait!",
+        submitBtn: "⚡ Créer un Lien Court",
+        submitBtnLoading: "⏳ Création...",
+        idPlaceholder: "ex: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Copier",
+        copied: "✅ Copié!",
+        copyError: "❌ Erreur!",
+        copyText: "Copiez le lien ci-dessus",
+        successMessage: "✅ Lien court créé avec succès!",
+        errorMessage: "❌ Une erreur s'est produite. Veuillez réessayer.",
+        warningExists: "⚠️ Cet ID est déjà utilisé",
+        feature1: "Ultra Rapide",
+        feature2: "Sécurisé",
+        feature3: "Design Moderne",
+        feature4: "Création Instantanée"
+      },
+      de: {
+        subtitle: "Ultra Moderner URL-Verkürzer",
+        idLabel: "🎯 Kurze ID",
+        domainLabel: "🌐 Ziel-URL",
+        randomBtn: "🎲 Zufällig",
+        randomBtnDone: "✨ Fertig!",
+        submitBtn: "⚡ Kurzen Link Erstellen",
+        submitBtnLoading: "⏳ Erstelle...",
+        idPlaceholder: "z.B: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Kopieren",
+        copied: "✅ Kopiert!",
+        copyError: "❌ Fehler!",
+        copyText: "Kopieren Sie den obigen Link",
+        successMessage: "✅ Kurzer Link erfolgreich erstellt!",
+        errorMessage: "❌ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        warningExists: "⚠️ Diese ID wird bereits verwendet",
+        feature1: "Ultra Schnell",
+        feature2: "Sicher",
+        feature3: "Modernes Design",
+        feature4: "Sofort Erstellen"
+      },
+      ru: {
+        subtitle: "Ультра Современный Сокращатель URL",
+        idLabel: "🎯 Короткий ID",
+        domainLabel: "🌐 Целевой URL",
+        randomBtn: "🎲 Случайно",
+        randomBtnDone: "✨ Готово!",
+        submitBtn: "⚡ Создать Короткую Ссылку",
+        submitBtnLoading: "⏳ Создание...",
+        idPlaceholder: "напр: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Копировать",
+        copied: "✅ Скопировано!",
+        copyError: "❌ Ошибка!",
+        copyText: "Скопируйте ссылку выше",
+        successMessage: "✅ Короткая ссылка успешно создана!",
+        errorMessage: "❌ Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+        warningExists: "⚠️ Этот ID уже используется",
+        feature1: "Ультра Быстро",
+        feature2: "Безопасно",
+        feature3: "Современный Дизайн",
+        feature4: "Мгновенное Создание"
+      },
+      zh: {
+        subtitle: "超现代URL缩短器",
+        idLabel: "🎯 短ID",
+        domainLabel: "🌐 目标URL",
+        randomBtn: "🎲 随机",
+        randomBtnDone: "✨ 完成!",
+        submitBtn: "⚡ 创建短链接",
+        submitBtnLoading: "⏳ 创建中...",
+        idPlaceholder: "例如: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 复制",
+        copied: "✅ 已复制!",
+        copyError: "❌ 错误!",
+        copyText: "复制上面的链接",
+        successMessage: "✅ 短链接创建成功!",
+        errorMessage: "❌ 发生错误。请重试。",
+        warningExists: "⚠️ 此ID已被使用",
+        feature1: "超快速",
+        feature2: "安全",
+        feature3: "现代设计",
+        feature4: "即时创建"
+      },
+      ja: {
+        subtitle: "ウルトラモダンURL短縮器",
+        idLabel: "🎯 短縮ID",
+        domainLabel: "🌐 ターゲットURL",
+        randomBtn: "🎲 ランダム",
+        randomBtnDone: "✨ 完了!",
+        submitBtn: "⚡ 短縮リンクを作成",
+        submitBtnLoading: "⏳ 作成中...",
+        idPlaceholder: "例: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 コピー",
+        copied: "✅ コピー済み!",
+        copyError: "❌ エラー!",
+        copyText: "上記のリンクをコピー",
+        successMessage: "✅ 短縮リンクが正常に作成されました!",
+        errorMessage: "❌ エラーが発生しました。もう一度お試しください。",
+        warningExists: "⚠️ このIDは既に使用されています",
+        feature1: "超高速",
+        feature2: "安全",
+        feature3: "モダンデザイン",
+        feature4: "即座に作成"
+      },
+      ko: {
+        subtitle: "울트라 모던 URL 단축기",
+        idLabel: "🎯 짧은 ID",
+        domainLabel: "🌐 대상 URL",
+        randomBtn: "🎲 랜덤",
+        randomBtnDone: "✨ 완료!",
+        submitBtn: "⚡ 짧은 링크 생성",
+        submitBtnLoading: "⏳ 생성 중...",
+        idPlaceholder: "예: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 복사",
+        copied: "✅ 복사됨!",
+        copyError: "❌ 오류!",
+        copyText: "위 링크를 복사하세요",
+        successMessage: "✅ 짧은 링크가 성공적으로 생성되었습니다!",
+        errorMessage: "❌ 오류가 발생했습니다. 다시 시도해 주세요.",
+        warningExists: "⚠️ 이 ID는 이미 사용 중입니다",
+        feature1: "울트라 빠름",
+        feature2: "안전함",
+        feature3: "모던 디자인",
+        feature4: "즉시 생성"
+      },
+      ar: {
+        subtitle: "مختصر روابط فائق الحداثة",
+        idLabel: "🎯 معرف قصير",
+        domainLabel: "🌐 الرابط المستهدف",
+        randomBtn: "🎲 عشوائي",
+        randomBtnDone: "✨ تم!",
+        submitBtn: "⚡ إنشاء رابط قصير",
+        submitBtnLoading: "⏳ جاري الإنشاء...",
+        idPlaceholder: "مثال: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 نسخ",
+        copied: "✅ تم النسخ!",
+        copyError: "❌ خطأ!",
+        copyText: "انسخ الرابط أعلاه",
+        successMessage: "✅ تم إنشاء الرابط القصير بنجاح!",
+        errorMessage: "❌ حدث خطأ. يرجى المحاولة مرة أخرى.",
+        warningExists: "⚠️ هذا المعرف مستخدم بالفعل",
+        feature1: "فائق السرعة",
+        feature2: "آمن",
+        feature3: "تصميم حديث",
+        feature4: "إنشاء فوري"
+      },
+      pt: {
+        subtitle: "Encurtador de URL Ultra Moderno",
+        idLabel: "🎯 ID Curto",
+        domainLabel: "🌐 URL de Destino",
+        randomBtn: "🎲 Aleatório",
+        randomBtnDone: "✨ Pronto!",
+        submitBtn: "⚡ Criar Link Curto",
+        submitBtnLoading: "⏳ Criando...",
+        idPlaceholder: "ex: mega-link-2024",
+        domainPlaceholder: "https://example.com",
+        copyBtn: "📋 Copiar",
+        copied: "✅ Copiado!",
+        copyError: "❌ Erro!",
+        copyText: "Copie o link acima",
+        successMessage: "✅ Link curto criado com sucesso!",
+        errorMessage: "❌ Ocorreu um erro. Tente novamente.",
+        warningExists: "⚠️ Este ID já está em uso",
+        feature1: "Ultra Rápido",
+        feature2: "Seguro",
+        feature3: "Design Moderno",
+        feature4: "Criar Instantâneo"
+      },
+      it: {
+        subtitle: "Accorciatore URL Ultra Moderno",
+        idLabel: "🎯 ID Breve",
+        domainLabel: "🌐 URL di Destinazione",
+        randomBtn: "🎲 Casuale",
