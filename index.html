@@ -8,6 +8,7 @@
   <meta name="keywords" content="url shortener, kısa link, world short link, modern, hızlı, güvenli, hood style, link kısalt, linkzone, gen z, kopilot">
   <meta name="author" content="DeveloperKubilay & Copilot AI">
   <style>
+    /* ... CSS içeriği değişmedi, direkt aynı bırakıyorum ... */
     * {
       margin: 0;
       padding: 0;
@@ -404,21 +405,11 @@
 
   <script>
     // Türkçe karakterleri İngilizce'ye çeviren fonksiyon
-    function slugifyTR(str) {
-      const map = {
-        'Ç': 'C', 'ç': 'c',
-        'Ğ': 'G', 'ğ': 'g',
-        'İ': 'I', 'ı': 'i',
-        'Ö': 'O', 'ö': 'o',
-        'Ş': 'S', 'ş': 's',
-        'Ü': 'U', 'ü': 'u'
+    function toEnglishChars(str) {
+      const letters = {
+        'ç':'c','Ç':'C','ğ':'g','Ğ':'G','ı':'i','İ':'I','ö':'o','Ö':'O','ş':'s','Ş':'S','ü':'u','Ü':'U'
       };
-      return str
-        .replace(/[ÇçĞğİıÖöŞşÜü]/g, m => map[m])
-        .replace(/[^A-Za-z0-9\-_.]/g, '-') // boşlukları ve özel karakterleri tire yap
-        .replace(/-+/g, '-') // art arda tireleri tek tireye indir
-        .replace(/^-|-$/g, '') // baş/son tire sil
-        .toLowerCase();
+      return str.replace(/[çÇğĞıİöÖşŞüÜ]/g, l => letters[l]).replace(/ /g, '-');
     }
 
     // Dil metinleri 💬
@@ -435,7 +426,6 @@
         warning_exist: "⚠️ Bu ID zaten kullanılıyor",
         success: "✅ Kısa link başarıyla oluşturuldu!",
         success_copy_text: "Yukarıdaki linki kopyalayın",
-        tr_version: "İngilizce karakterlerle versiyonu:",
         error: "❌ Bir hata oluştu. Lütfen tekrar deneyin.",
         features: ["Ultra Hızlı", "Güvenli", "Modern Tasarım", "Anında Oluştur"],
         placeholder_id: "örn: mega-link-2024",
@@ -453,7 +443,6 @@
         warning_exist: "⚠️ This ID is already taken",
         success: "✅ Short link created successfully!",
         success_copy_text: "Copy the link above",
-        tr_version: "Version with english chars:",
         error: "❌ An error occurred. Please try again.",
         features: ["Ultra Fast", "Secure", "Modern Design", "Instant Create"],
         placeholder_id: "e.g. mega-link-2024",
@@ -471,7 +460,6 @@
         warning_exist: "⚠️ Diese ID ist bereits vergeben",
         success: "✅ Kurzlink erfolgreich erstellt!",
         success_copy_text: "Obigen Link kopieren",
-        tr_version: "Mit englischen Zeichen:",
         error: "❌ Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
         features: ["Ultra Schnell", "Sicher", "Modernes Design", "Sofort Erstellen"],
         placeholder_id: "z.B. mega-link-2024",
@@ -489,7 +477,6 @@
         warning_exist: "⚠️ Cet ID est déjà utilisé",
         success: "✅ Lien court créé avec succès!",
         success_copy_text: "Copiez le lien ci-dessus",
-        tr_version: "Version avec des caractères anglais :",
         error: "❌ Une erreur est survenue. Veuillez réessayer.",
         features: ["Ultra Rapide", "Sécurisé", "Design Moderne", "Création Instantanée"],
         placeholder_id: "ex : mega-link-2024",
@@ -507,7 +494,6 @@
         warning_exist: "⚠️ Этот ID уже используется",
         success: "✅ Короткая ссылка успешно создана!",
         success_copy_text: "Скопируйте ссылку выше",
-        tr_version: "Версия с английскими символами:",
         error: "❌ Произошла ошибка. Повторите попытку.",
         features: ["Супер быстро", "Безопасно", "Современный дизайн", "Мгновенно"],
         placeholder_id: "например: mega-link-2024",
@@ -525,7 +511,6 @@
         warning_exist: "⚠️ Este ID ya está en uso",
         success: "✅ ¡Enlace corto creado exitosamente!",
         success_copy_text: "Copia el enlace de arriba",
-        tr_version: "Versión con caracteres ingleses:",
         error: "❌ Ocurrió un error. Inténtalo de nuevo.",
         features: ["Ultra Rápido", "Seguro", "Diseño Moderno", "Creación Instantánea"],
         placeholder_id: "ej: mega-link-2024",
@@ -543,7 +528,6 @@
         warning_exist: "⚠️ Questo ID è già in uso",
         success: "✅ Link breve creato con successo!",
         success_copy_text: "Copia il link sopra",
-        tr_version: "Versione con caratteri inglesi:",
         error: "❌ Si è verificato un errore. Riprova.",
         features: ["Ultra Veloce", "Sicuro", "Design Moderno", "Creazione Istantanea"],
         placeholder_id: "es: mega-link-2024",
@@ -561,7 +545,6 @@
         warning_exist: "⚠️ 此ID已被使用",
         success: "✅ 短链接创建成功!",
         success_copy_text: "复制上面的链接",
-        tr_version: "英文字符版本：",
         error: "❌ 出现错误，请重试。",
         features: ["超快", "安全", "现代设计", "即时创建"],
         placeholder_id: "例如: mega-link-2024",
@@ -579,7 +562,6 @@
         warning_exist: "⚠️ このIDは既に使われています",
         success: "✅ ショートリンクが正常に作成されました!",
         success_copy_text: "上のリンクをコピーしてください",
-        tr_version: "英語の文字でのバージョン：",
         error: "❌ エラーが発生しました。再試行してください。",
         features: ["超高速", "安全", "モダンデザイン", "即作成"],
         placeholder_id: "例: mega-link-2024",
@@ -597,7 +579,6 @@
         warning_exist: "⚠️ هذا المعرف مستخدم بالفعل",
         success: "✅ تم إنشاء الرابط القصير بنجاح!",
         success_copy_text: "انسخ الرابط أعلاه",
-        tr_version: "نسخة بأحرف إنجليزية:",
         error: "❌ حدث خطأ. يرجى المحاولة مرة أخرى.",
         features: ["سريع جدًا", "آمن", "تصميم عصري", "إنشاء فوري"],
         placeholder_id: "مثال: mega-link-2024",
@@ -682,25 +663,9 @@
           if (result.includes('Bu ID zaten kullanılıyor') || result.includes('ID is already taken')) {
             messageContainer.innerHTML = `<div class="warning">${LANGS[currentLang].warning_exist}</div>`;
           } else {
-            const shortUrl = `https://worldshortlink.com/${idValue}`;
-            const trUrl = `https://worldshortlink.com/${slugifyTR(idValue)}`;
-            let trBlock = '';
-            // Eğer slugify edilmiş versiyonu orijinalden farklıysa göster
-            if (slugifyTR(idValue) !== idValue.toLowerCase()) {
-              trBlock = `
-                <div class="success-url" style="margin-top:10px;">
-                  <span style="font-size: 0.95rem; color: #fbbf24; font-weight:600;">${LANGS[currentLang].tr_version}</span>
-                  <br>
-                  <code>${trUrl}</code>
-                  <div class="copy-container">
-                    <span style="font-size: 0.85rem; color: #9ca3af;">${LANGS[currentLang].success_copy_text}</span>
-                    <button class="copy-btn" onclick="handleCopy('${trUrl}', this)">
-                      ${LANGS[currentLang].copy}
-                    </button>
-                  </div>
-                </div>
-              `;
-            }
+            // Türkçe karakterleri URL'de ingilizcesine çevir
+            const urlId = toEnglishChars(idValue);
+            const shortUrl = `https://worldshortlink.com/${urlId}`;
             messageContainer.innerHTML = `
               <div class="success">
                 ${LANGS[currentLang].success}
@@ -713,7 +678,6 @@
                     </button>
                   </div>
                 </div>
-                ${trBlock}
               </div>
             `;
             this.reset();
