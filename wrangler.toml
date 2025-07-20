@@ -4,4 +4,4 @@ compatibility_date = "2025-07-20"
 
 [[kv_namespaces]]
 binding = "LINKS" # env.LINKS diye erişeceğiz
-id = "1b9228c3a7ad466197509a0758c162bf"
+id = "9eb7e7fd7abe4415a9683504684ed205"
