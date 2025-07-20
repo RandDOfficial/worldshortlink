@@ -1,5 +1,6 @@
 name = "worldshortlink"
 main = "index.js"
+compatibility_date = "2025-07-20"
 
 [[kv_namespaces]]
 binding = "LINKS" # env.LINKS diye erişeceğiz
