@@ -1,3 +1,7 @@
+// HTML dosyalarını import et
+import indexHtml from './index.html';
+import notFoundHtml from './404.html';
+
 // Turkish to English character conversion map
 const turkishToEnglish = {
   'ç': 'c', 'Ç': 'C',
@@ -26,16 +30,11 @@ export default {
     const url = new URL(req.url);
     const path = url.pathname;
 
-    // Serve main page from assets
+    // Serve main page
     if (req.method === 'GET' && path === '/') {
-      try {
-        const htmlFile = await env.ASSETS.fetch(new Request('/index.html'));
-        return new Response(await htmlFile.text(), {
-          headers: { 'Content-Type': 'text/html; charset=utf-8' }
-        });
-      } catch (error) {
-        return new Response('Ana sayfa yüklenemedi', { status: 500 });
-      }
+      return new Response(indexHtml, {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
     }
 
     // Handle form submission
@@ -116,18 +115,10 @@ export default {
       }
     }
 
-    // 404 page from assets
-    try {
-      const notFoundFile = await env.ASSETS.fetch(new Request('/404.html'));
-      return new Response(await notFoundFile.text(), { 
-        status: 404,
-        headers: { 'Content-Type': 'text/html; charset=utf-8' }
-      });
-    } catch (error) {
-      return new Response('404 - Sayfa bulunamadı', { 
-        status: 404,
-        headers: { 'Content-Type': 'text/html; charset=utf-8' }
-      });
-    }
+    // 404 page
+    return new Response(notFoundHtml, { 
+      status: 404,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' }
+    });
   }
 }
