@@ -284,22 +284,26 @@
       color: #64748b;
       font-weight: 600;
     }
-    @media (max-width: 768px) {
-      .container {
-        max-width: 95%;
-        padding: 2rem;
-        margin: 1rem;
-      }
-      .logo h1 {
-        font-size: 2rem;
-      }
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-      .copy-container {
-        flex-direction: column;
-      }
-    }
+@media (max-width: 768px) {
+  .container {
+    max-width: 99vw; /* daha geniş */
+    padding: 2rem;
+    margin: 1rem;
+  }
+  .logo h1 {
+    font-size: 2rem;
+    margin-top: 24px; /* başlık margin-top ekledik */
+  }
+  .feature-grid {
+    display: none; /* mobilde ultra hızlı vs gözükmesin */
+  }
+  .features {
+    display: none; /* mobilde ultra hızlı vs gözükmesin */
+  }
+  .copy-container {
+    flex-direction: column;
+  }
+}
     @media (max-width: 480px) {
       .input-wrapper {
         flex-direction: column;
