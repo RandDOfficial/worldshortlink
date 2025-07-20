@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Link Bulunamadı | LinkZone</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .error-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: #6b7280;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    
+    .home-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 16px;
+      font-weight: 700;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    
+    .home-btn:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-icon">🔍</div>
+    <h1>Link Bulunamadı!</h1>
+    <p>Aradığınız kısa link mevcut değil veya kaldırılmış olabilir.</p>
+    <a href="/" class="home-btn">🏠 Ana Sayfaya Dön</a>
+  </div>
+</body>
+</html>
