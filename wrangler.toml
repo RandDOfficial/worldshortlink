@@ -1,5 +1,5 @@
 name = "worldshortlink"
-type = "javascript"
+main = "index.js"
 
 [[kv_namespaces]]
 binding = "LINKS" # env.LINKS diye erişeceğiz
