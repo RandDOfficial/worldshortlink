@@ -19,16 +19,15 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      /* Morumsu background tam ekran kaplasın diye height 100vh ve min-height 100vh */
       min-height: 100vh;
       height: 100vh;
       width: 100vw;
+      background: linear-gradient(135deg, #6e54ad 0%, #764ba2 100%);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #6e54ad 0%, #764ba2 100%);
     }
     .particles {
       position: absolute;
@@ -61,18 +60,50 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border-radius: 24px;
-      padding: 3rem;
+      padding: 3rem 2rem;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-      width: 90%;
-      max-width: 650px;
+      width: 100%;
+      max-width: 410px;
       position: relative;
-      overflow-y: auto;
       z-index: 10;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 420px;
+      max-height: 90vh;
+      /* Ortala */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    /* Dil seçici ana stil */
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 24px auto;
+      background: rgba(255,255,255,0.98);
+      border-radius: 12px;
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e7eb;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      outline: none;
+      transition: box-shadow .2s;
+      width: 80%;
+      position: static;
+    }
+    .lang-switcher:focus {
+      box-shadow: 0 2px 16px #764ba2aa;
     }
     .logo {
       text-align: center;
       margin-bottom: 2rem;
+      margin-top: 0;
     }
     .logo h1 {
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -215,11 +246,9 @@
       word-break: break-all;
       position: relative;
       border: 2px solid #374151;
-      /* Mobilde width 100% olması için ayar */
       width: 100%;
       box-sizing: border-box;
       max-width: 100%;
-      transition: width .2s;
     }
     .copy-container {
       display: flex;
@@ -267,61 +296,42 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-    .features {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid #e5e7eb;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .feature {
-      text-align: center;
-      padding: 1rem;
-      background: #f1f5f9;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-    }
-    .feature-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .feature-text {
-      font-size: 0.8rem;
-      color: #64748b;
-      font-weight: 600;
-    }
-    /* Mobil ayarları */
     @media (max-width: 768px) {
       body {
         align-items: flex-start;
+        justify-content: center;
       }
       .container {
         max-width: 99vw;
-        padding: 2rem;
-        margin: 0.5rem auto;
+        padding: 2rem 1rem;
+        margin: 4vw auto;
+        min-height: 400px;
+        max-height: 85vh;
       }
       .logo h1 {
         font-size: 2rem;
-        margin-top: 36px; /* Daha fazla margin-top verildi */
+        margin-top: 40px;
       }
-      .feature-grid,
-      .features {
+      .features, .feature-grid {
         display: none !important;
       }
       .copy-container {
         flex-direction: column;
       }
-      /* Başarıyla oluşturulan url mobilde tam genişlik */
       .success-url {
         width: 100vw;
         max-width: 100vw;
-        margin-left: -2rem;
-        margin-right: -2rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
         border-radius: 0 0 12px 12px;
+      }
+      .lang-switcher {
+        position: static;
+        margin: 0 auto 24px auto;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
     @media (max-width: 480px) {
@@ -341,29 +351,10 @@
         margin-left: -1rem;
         margin-right: -1rem;
       }
-    }
-    /* Dil dropdown */
-    .lang-switcher {
-      position: absolute;
-      top: 18px;
-      right: 26px;
-      z-index: 20;
-      background: rgba(255,255,255,0.98);
-      border-radius: 12px;
-      padding: 0.5rem 1rem;
-      border: 1px solid #e5e7eb;
-      font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      outline: none;
-      transition: box-shadow .2s;
-    }
-    .lang-switcher:focus {
-      box-shadow: 0 2px 16px #764ba2aa;
-    }
-    /* Mobilde ve link oluşturulunca dil seçme gizlenir */
-    .lang-switcher.hide {
-      display: none !important;
+      .lang-switcher {
+        width: 100%;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -376,20 +367,20 @@
     <div class="particle"></div>
   </div>
 
-  <select class="lang-switcher" id="lang-switcher">
-    <option value="tr">🇹🇷 Türkçe</option>
-    <option value="en">🇬🇧 English</option>
-    <option value="de">🇩🇪 Deutsch</option>
-    <option value="fr">🇫🇷 Français</option>
-    <option value="ru">🇷🇺 Русский</option>
-    <option value="es">🇪🇸 Español</option>
-    <option value="it">🇮🇹 Italiano</option>
-    <option value="zh">🇨🇳 中文</option>
-    <option value="ja">🇯🇵 日本語</option>
-    <option value="ar">🇸🇦 العربية</option>
-  </select>
-
   <div class="container">
+    <select class="lang-switcher" id="lang-switcher">
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+
     <div class="logo">
       <h1>🔗 World Short Link</h1>
       <p>Ultra Modern URL Shortener</p>
@@ -405,37 +396,22 @@
           <button type="button" class="random-btn" id="random-btn">🎲 Random</button>
         </div>
       </div>
-
       <div class="form-group">
         <label for="domain" id="label-domain">🌐 Hedef URL</label>
         <div class="input-wrapper">
           <input type="url" name="domain" id="domain" placeholder="https://example.com" required />
         </div>
       </div>
-
       <button type="submit" class="submit-btn" id="submit-btn">
         ⚡ Kısa Link Oluştur
       </button>
     </form>
-
     <div class="features">
       <div class="feature-grid">
-        <div class="feature">
-          <div class="feature-icon">🚀</div>
-          <div class="feature-text" id="feature1">Ultra Hızlı</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-text" id="feature2">Güvenli</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🎨</div>
-          <div class="feature-text" id="feature3">Modern Tasarım</div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⚡</div>
-          <div class="feature-text" id="feature4">Anında Oluştur</div>
-        </div>
+        <div class="feature"><div class="feature-icon">🚀</div><div class="feature-text" id="feature1">Ultra Hızlı</div></div>
+        <div class="feature"><div class="feature-icon">🛡️</div><div class="feature-text" id="feature2">Güvenli</div></div>
+        <div class="feature"><div class="feature-icon">🎨</div><div class="feature-text" id="feature3">Modern Tasarım</div></div>
+        <div class="feature"><div class="feature-icon">⚡</div><div class="feature-text" id="feature4">Anında Oluştur</div></div>
       </div>
     </div>
   </div>
@@ -476,7 +452,7 @@
         features: ["Ultra Fast", "Secure", "Modern Design", "Instant Create"],
         placeholder_id: "e.g. mega-link-2024",
         placeholder_domain: "https://example.com"
-      },
+      }
       // ... diğer diller ...
     };
 
@@ -500,6 +476,9 @@
       setLang(this.value);
     });
     setLang('tr'); // Default
+
+    // Girince direk en üstte scroll yapsın - animasyonsuz
+    window.scrollTo(0, 0);
 
     // Random URL generator
     function generateRandomId() {
@@ -544,14 +523,9 @@
       const formData = new FormData(this);
       const submitBtn = document.getElementById('submit-btn');
       const messageContainer = document.getElementById('message-container');
-      const langSwitcher = document.getElementById('lang-switcher');
       const idValue = formData.get('id');
       submitBtn.innerHTML = LANGS[currentLang].loading;
       submitBtn.disabled = true;
-
-      // Mobilde veya PC'de link oluşunca dil seçici gizlensin
-      langSwitcher.classList.add('hide');
-
       try {
         const response = await fetch('/', {
           method: 'POST',
@@ -561,7 +535,6 @@
         if (response.ok) {
           if (result.includes('Bu ID zaten kullanılıyor') || result.includes('ID is already taken')) {
             messageContainer.innerHTML = `<div class="warning">${LANGS[currentLang].warning_exist}</div>`;
-            langSwitcher.classList.remove('hide');
           } else {
             const shortUrl = `https://worldshortlink.com/${idValue}`;
             messageContainer.innerHTML = `
@@ -583,11 +556,9 @@
           }
         } else {
           messageContainer.innerHTML = `<div class="error">${LANGS[currentLang].error}</div>`;
-          langSwitcher.classList.remove('hide');
         }
       } catch (error) {
         messageContainer.innerHTML = `<div class="error">${LANGS[currentLang].error}</div>`;
-        langSwitcher.classList.remove('hide');
       }
       submitBtn.innerHTML = LANGS[currentLang].btn_create;
       submitBtn.disabled = false;
