@@ -1,0 +1,6 @@
+name = "worldshortlink"
+type = "javascript"
+
+[[kv_namespaces]]
+binding = "LINKS" # env.LINKS diye erişeceğiz
+id = "1b9228c3a7ad466197509a0758c162bf"
