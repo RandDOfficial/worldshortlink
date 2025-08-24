@@ -665,8 +665,8 @@
           if (result.includes('Bu ID zaten kullanılıyor') || result.includes('ID is already taken')) {
             messageContainer.innerHTML = `<div class="warning">${LANGS[currentLang].warning_exist}</div>`;
           } else {
-            // Türkçe karakterleri URL'de ingilizcesine çevir
-            const urlId = toEnglishChars(idValue);
+            // Türkçe karakterleri URL'de ingilizcesine çevir ve küçük harfe çevir
+            const urlId = toEnglishChars(idValue).toLowerCase();
             const shortUrl = `https://worldshortlink.com/${urlId}`;
             messageContainer.innerHTML = `
               <div class="success">
